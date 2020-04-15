@@ -20,4 +20,10 @@ void Sensors::updateSensors() {
             sensorValues[i] = 0;
         }
     }
+
+    //if indicator is on black and past the cooldown time (new indicator) change state
+    if (sensorValues[3] == 1 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
+        indicatorTimer = millis();
+        onStraight = !onStraight;
+    }
 }

@@ -16,18 +16,27 @@
 #define EMITTER B3
 
 #define WHITE_THRESHOLD 50
+//states
+#define ON_STRAIGHT 0
+#define ON_CURVE   1
 
-#define NUM_SENSORS 2
+#define INDICATOR_COOLDOWN 500
+
+#define NUM_SENSORS 4
 // 8 (left) -> 1 (right)
 
 class Sensors {
     public:
         Sensors(); //initialise class
-        char sensorPins[NUM_SENSORS] = {SENSOR_1, SENSOR_4};
+        //sensor pins left to right 
+        //sensor[1], sensor[2] are for line following , sensor[4], sensor[5] for curve line //sensor_8 and 4 for pid
+        char sensorPins[NUM_SENSORS] = {SENSOR_7, SENSOR_6, SENSOR_2, SENSOR_1};
         void updateSensors();
         int sensorValues[NUM_SENSORS];
+        bool onStraight = true;
     private:
         int a_sensorValues[NUM_SENSORS];
+        long indicatorTimer = 0;
 };
 
 
