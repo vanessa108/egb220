@@ -27,3 +27,10 @@ void Motors::driveRight(int speed) {
     digitalWrite(L_DIR, HIGH);
     digitalWrite(R_DIR, LOW);
 }
+
+void Motors::drive(int speed) {
+    analogWrite(L_PWM, leftBaseSpeed - speed);
+    analogWrite(R_PWM, rightBaseSpeed + speed);
+    digitalWrite(L_DIR, HIGH);
+    digitalWrite(R_DIR, LOW);
+}

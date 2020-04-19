@@ -27,3 +27,22 @@ void Sensors::updateSensors() {
         onStraight = !onStraight;
     }
 }
+
+/** returns error value based on distance 
+ * negative error means the robot is to the left of the line **/
+
+int Sensors::calculateError() {
+    if (sensorValues[0] == 0 && sensorValues[1] == 1 && sensorValues[2] == 1 && sensorValues[3] == 0) {
+        return 0;
+    } else if (sensorValues[0] == 0 && sensorValues[1] == 0 && sensorValues[2] == 1 && sensorValues[3] == 1) {
+        return -1;
+    } else if (sensorValues[0] == 0 && sensorValues[1] == 0 && sensorValues[2] == 0 && sensorValues[3] == 1) {
+        return -2;
+    }else if (sensorValues[0] == 1 && sensorValues[1] == 1 && sensorValues[2] == 0 && sensorValues[3] == 0) {
+        return 1;
+    }else if (sensorValues[0] == 1 && sensorValues[1] == 0 && sensorValues[2] == 0 && sensorValues[3] == 0) {
+        return 2;
+    } else {
+      return 5;
+    }
+}

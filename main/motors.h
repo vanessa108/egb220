@@ -18,7 +18,10 @@ class Motors {
         void driveForward(int speed);
         void driveLeft (int speed);
         void driveRight(int speed);
-
+        void drive(int speed);
+    private:
+      const int leftBaseSpeed = 100;
+      const int rightBaseSpeed = 100;
 
 };
 
