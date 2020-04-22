@@ -9,20 +9,17 @@ Sensors::Sensors() {
 }
 
 void Sensors::updateSensors() {
+    // read analog
     for (int i =0; i < NUM_SENSORS; i++) {
         a_sensorValues[i] = analogRead(sensorPins[i]);
     }
-    
+    //could probably put this in the above for loop
     for (int i=0; i <NUM_SENSORS; i++) {
         if (a_sensorValues[i] > WHITE_THRESHOLD) {
             sensorValues[i] = 1; //black
         } else {
             sensorValues[i] = 0;
         }
-    }
- 
-    for (int i = 0; i < NUM_SENSORS - 1; i++) {
-      sensorSum += sensorValues[i];
     }
 
     //if indicator is on black and past the cooldown time (new indicator) change state
@@ -34,7 +31,6 @@ void Sensors::updateSensors() {
 
 /** returns error value based on distance 
  * negative error means the robot is to the left of the line **/
-//sensorPins[NUM_SENSORS] = {SENSOR_8, SENSOR_7, SENSOR_6, SENSOR_4, SENSOR_3 ,SENSOR_2, SENSOR_1};
 
 int Sensors::calculateError() {
     // int weightedAverage = (5000*sensorValues[0] + 4000*sensorValues[1] + 3000*sensorValues[2] + 2000*sensorValues[3]
