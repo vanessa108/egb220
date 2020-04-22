@@ -19,7 +19,7 @@ class Motors {
         void driveLeft (int speed);
         void driveRight(int speed);
         void drive(int speed);
-        int baseSpeed = 100;
+        int baseSpeed = 80;
     private:
       
 

@@ -12,7 +12,7 @@ void Sensors::updateSensors() {
     for (int i =0; i < NUM_SENSORS; i++) {
         a_sensorValues[i] = analogRead(sensorPins[i]);
     }
-
+    
     for (int i=0; i <NUM_SENSORS; i++) {
         if (a_sensorValues[i] > WHITE_THRESHOLD) {
             sensorValues[i] = 1; //black
@@ -20,9 +20,13 @@ void Sensors::updateSensors() {
             sensorValues[i] = 0;
         }
     }
+ 
+    for (int i = 0; i < NUM_SENSORS - 1; i++) {
+      sensorSum += sensorValues[i];
+    }
 
     //if indicator is on black and past the cooldown time (new indicator) change state
-    if (sensorValues[4] == 1 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
+    if (sensorValues[6] == 1 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
         indicatorTimer = millis();
         onStraight = !onStraight;
     }

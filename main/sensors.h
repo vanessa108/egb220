@@ -20,7 +20,7 @@
 #define ON_STRAIGHT 0
 #define ON_CURVE   1
 
-#define INDICATOR_COOLDOWN 170 
+#define INDICATOR_COOLDOWN 150 
 
 #define NUM_SENSORS 7
 // 8 (left) -> 1 (right)
@@ -35,6 +35,7 @@ class Sensors {
         int sensorValues[NUM_SENSORS];
         bool onStraight = true;
         int calculateError();
+        int sensorSum = 0;
     private:
         int a_sensorValues[NUM_SENSORS];
         long indicatorTimer = 0;
