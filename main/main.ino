@@ -42,7 +42,7 @@ void loop() {
     straightCool = millis();
   }
   if (straightCool + 100 < millis()) {
-    motor.baseSpeed = 120;
+    motor.baseSpeed = 130;
   }
 } else {
   digitalWrite(LED2, LOW);
