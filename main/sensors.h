@@ -20,18 +20,17 @@
 #define ON_STRAIGHT 0
 #define ON_CURVE   1
 
-#define INDICATOR_COOLDOWN 170
+#define INDICATOR_COOLDOWN 170 
 
-#define NUM_SENSORS 6
+#define NUM_SENSORS 7
 // 8 (left) -> 1 (right)
 
 class Sensors {
     public:
         Sensors(); //initialise class
-        //sensor pins left to right 
-        //sensor[1], sensor[2] are for line following , sensor[4], sensor[5] for curve line //sensor_8 and 4 for pid
+        //sensor pins left to right   
         //  ROBOT POV sensor_8 is left most 
-        char sensorPins[NUM_SENSORS] = {SENSOR_8, SENSOR_7, SENSOR_6, SENSOR_4, SENSOR_2, SENSOR_1};
+        char sensorPins[NUM_SENSORS] = {SENSOR_8, SENSOR_7, SENSOR_6, SENSOR_4, SENSOR_3 ,SENSOR_2, SENSOR_1};
         void updateSensors();
         int sensorValues[NUM_SENSORS];
         bool onStraight = true;
