@@ -20,7 +20,7 @@
 #define ON_STRAIGHT 0
 #define ON_CURVE   1
 
-#define INDICATOR_COOLDOWN 130 
+#define INDICATOR_COOLDOWN 100
 
 #define NUM_SENSORS 7
 // 8 (left) -> 1 (right)
