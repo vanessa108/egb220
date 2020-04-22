@@ -13,12 +13,13 @@
 
 class Motors {
     public:
+      //sets motor pin modes to output
       Motors();
         int motorPins[4] = {L_PWM, L_DIR, R_PWM, R_DIR};
-        void driveForward(int speed);
-        void driveLeft (int speed);
-        void driveRight(int speed);
-
+        void drive(int speed);
+        int baseSpeed = 130;
+    private:
+      
 
 };
 

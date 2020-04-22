@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:leonardo",
+    "programmer": "Arduino as ISP",
+    "port": "COM27",
+    "sketch": "main.ino"
+}

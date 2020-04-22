@@ -4,54 +4,54 @@
 #include "motors.h"
 #include "sensors.h"
 
-#define STRAIGHT_SPEED 50
-#define TURNING_SPEED  80
 Sensors sensor;
 Motors motor;
 
-
-
-void follow_line() {
-  int left = sensor.sensorValues[0];
-  int right = sensor.sensorValues[1];
-  //1 = black 0 = white
-  if (left == 1 and right == 0){
-    motor.driveLeft(TURNING_SPEED);
-    Serial.println("left");
-  } else if (left == 0 and right == 1) {
-    motor.driveRight(TURNING_SPEED);
-    Serial.println("right");
-  } else {
-      motor.driveForward(STRAIGHT_SPEED);
-      Serial.println("straight");
-  }
-  
-}
-
-
+/** Error constants **/
+int error = 0;
+int previousError = 0;
+int dError = 0;
+int iError = 0;
+float Kp = 39; //best for speed 80
+float Kd = 2; 
+float Ki = 0;
+float errorSpeed = 0;
+bool prevStraight = true;
+long straightCool = 0; //cooldown timer for speeding up 
 
 void setup() {
   Serial.begin(9600);
-
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
 }
-
 
 void loop() {
   sensor.updateSensors();
-  follow_line();
-  ///right
-  //Serial.println(sensor.sensorValues[0]);
-  //Serial.println(analogRead(sensor.sensorPins[0]));
-  //Serial.println(sensor.sensorValues[1]);
-  //Serial.println(analogRead(sensor.sensorPins[1]));
-  //delay(1000);
-  /**motor.driveForward(STRAIGHT_SPEED);
-  
-  motor.driveLeft(TURNING_SPEED);
-  delay(2000);
-  motor.driveRight(TURNING_SPEED);
-  delay(2000);
-  **/
-
+  // if the robot is on a straight, speed up and turn on LEDs
+  if (sensor.onStraight) {
+    digitalWrite(LED2, HIGH);
+    digitalWrite(LED3, HIGH);
+  //if not previously on a straight, reset the speed cooldown and state
+  if (!prevStraight) {
+    prevStraight = true;
+    straightCool = millis();
+  }
+  // robot speeds up if it is still on a straight and the cooldown is over
+  if (straightCool + 100 < millis()) {
+    motor.baseSpeed = 130;
+  }
+} else {
+  digitalWrite(LED2, LOW);
+  digitalWrite(LED3, LOW);
+  motor.baseSpeed = 80;
+  prevStraight = false;
+}
+/** PID control **/
+  error = sensor.calculateError();
+  dError = error - previousError;
+  iError += iError;
+  errorSpeed = (Kp*error) + (Ki*iError) + (Kd*dError);
+  motor.drive(errorSpeed);
+  previousError = error;
 
 }
