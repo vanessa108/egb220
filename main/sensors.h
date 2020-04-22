@@ -15,12 +15,12 @@
 
 #define EMITTER B3
 
-#define WHITE_THRESHOLD 50
+#define WHITE_THRESHOLD 100
 //states
 #define ON_STRAIGHT 0
 #define ON_CURVE   1
 
-#define INDICATOR_COOLDOWN 150 
+#define INDICATOR_COOLDOWN 130 
 
 #define NUM_SENSORS 7
 // 8 (left) -> 1 (right)
