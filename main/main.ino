@@ -3,9 +3,12 @@
 #include "spark.h"
 #include "motors.h"
 #include "sensors.h"
+#include "LiquidCrystal_SoftI2C.h"
 
+SoftwareWire *wire = new SoftwareWire(F1, F4);
 Sensors sensor;
 Motors motor;
+LiquidCrystal_I2C lcd(0x27, 16, 2, wire);
 
 /** Error constants **/
 int error = 0;
@@ -23,6 +26,9 @@ void setup() {
   Serial.begin(9600);
   pinMode(LED2, OUTPUT);
   pinMode(LED3, OUTPUT);
+  lcd.begin();
+  lcd.backlight();
+  lcd.print("Hello World");
 }
 
 void loop() {
