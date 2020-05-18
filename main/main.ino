@@ -45,7 +45,14 @@ void loop() {
   // robot speeds up if it is still on a straight and the cooldown is over
   if (straightCool + 100 < millis()) {
     motor.baseSpeed = 130;
-  }
+  } else if (sensor.onSlow){
+	digitalWrite(LED2, LOW);
+    digitalWrite(LED3, HIGH);
+	prevStraight = true;
+	straightCool = millis();
+	if (straightCool + 100 < millis()) {
+    motor.baseSpeed = ????;
+  }	
 } else {
   digitalWrite(LED2, LOW);
   digitalWrite(LED3, LOW);
