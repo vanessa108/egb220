@@ -15,9 +15,13 @@ void Sensors::updateSensors() {
     }
     //could probably put this in the above for loop
     for (int i=0; i <NUM_SENSORS; i++) {
-        if (a_sensorValues[i] > WHITE_THRESHOLD) {
+        if (a_sensorValues[i] < RED_THRESHOLD && a_sensorValues[i] > GREEN_THRESHOLD) {
+            sensorValues[i] = 3; //red
+        } else if (a_sensorValues[i] > WHITE_THRESHOLD && a_sensorValues[i] < GREEN_THRESHOLD){
+            sensorValues[i] = 2; //green
+        }else if (a_sensorValues[i] > WHITE_THRESHOLD && a_sensorValues[i] > GREEN_THRESHOLD && a_sensorValues[i] > RED_THRESHOLD){
             sensorValues[i] = 1; //black
-        } else {
+        }else {
             sensorValues[i] = 0;
         }
     }
@@ -26,6 +30,15 @@ void Sensors::updateSensors() {
     if (sensorValues[6] == 1 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
         indicatorTimer = millis();
         onStraight = !onStraight;
+    }
+    //if indicator is on green and past the cooldown time (new indicator) change state
+	if (sensorValues[6] == 2 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
+        indicatorTimer = millis();
+        onSlow = !onSlow;
+    }
+	if (sensorValues[6] == 3 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
+        indicatorTimer = millis();
+        onSlow = onSlow;
     }
 }
 
