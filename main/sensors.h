@@ -16,9 +16,13 @@
 #define EMITTER B3
 //threshold for detecting black
 #define WHITE_THRESHOLD 100
+#define GREEN_THRESHOLD 
+#define RED_THRESHOLD 
+
 //states
 #define ON_STRAIGHT 0
 #define ON_CURVE   1
+#define ON_SLOW   2
 //cool down for the indicator (this prevents the indicator blinking on and off while over a line)
 #define INDICATOR_COOLDOWN 100
 
@@ -39,6 +43,7 @@ class Sensors {
         void updateSensors();
         int sensorValues[NUM_SENSORS];
         bool onStraight = true;
+        bool onSlow = false;
         /**
          * determines the position error of the robot **/
         int calculateError();
