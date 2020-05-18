@@ -33,6 +33,14 @@ void setup() {
 
 void loop() {
   sensor.updateSensors();
+	if (sensor.onSlow){
+	digitalWrite(LED2, LOW);
+	digitalWrite(LED3, HIGH);
+	prevStraight = true;
+	straightCool = millis();
+	if (straightCool + 100 < millis()) {
+        motor.baseSpeed = ????;
+  }
   // if the robot is on a straight, speed up and turn on LEDs
   if (sensor.onStraight) {
     digitalWrite(LED2, HIGH);
@@ -45,14 +53,7 @@ void loop() {
   // robot speeds up if it is still on a straight and the cooldown is over
   if (straightCool + 100 < millis()) {
     motor.baseSpeed = 130;
-  } else if (sensor.onSlow){
-	digitalWrite(LED2, LOW);
-    digitalWrite(LED3, HIGH);
-	prevStraight = true;
-	straightCool = millis();
-	if (straightCool + 100 < millis()) {
-    motor.baseSpeed = ????;
-  }	
+  } 	
 } else {
   digitalWrite(LED2, LOW);
   digitalWrite(LED3, LOW);
