@@ -39,8 +39,9 @@ void loop() {
 	prevStraight = true;
 	straightCool = millis();
 	if (straightCool + 100 < millis()) {
-        motor.baseSpeed = ????;
-  }
+        motor.baseSpeed = 65;
+  	}
+	}
   // if the robot is on a straight, speed up and turn on LEDs
   if (sensor.onStraight) {
     digitalWrite(LED2, HIGH);
