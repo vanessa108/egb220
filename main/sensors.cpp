@@ -15,12 +15,10 @@ void Sensors::updateSensors() {
         a_sensorValues[i] = analogRead(sensorPins[i]);
     }
     //could probably put this in the above for loop
-    for (int i=0; i <NUM_SENSORS; i++) {
-        if (a_sensorValues[i] < RED_THRESHOLD && a_sensorValues[i] > GREEN_THRESHOLD) {
-            sensorValues[i] = 3; //red
-        } else if (a_sensorValues[i] > WHITE_THRESHOLD && a_sensorValues[i] < GREEN_THRESHOLD){
-            sensorValues[i] = 2; //green
-        }else if (a_sensorValues[i] > WHITE_THRESHOLD && a_sensorValues[i] > GREEN_THRESHOLD && a_sensorValues[i] > RED_THRESHOLD){
+   for (int i=0; i <NUM_SENSORS; i++) {
+        if (a_sensorValues[i] > WHITE_THRESHOLD && a_sensorValues[i] < GREEN_RED_THRESHOLD){
+            sensorValues[i] = 2; //green or red
+        }else if (a_sensorValues[i] > WHITE_THRESHOLD && a_sensorValues[i] > GREEN_RED_THRESHOLD ){
             sensorValues[i] = 1; //black
         }else {
             sensorValues[i] = 0;
