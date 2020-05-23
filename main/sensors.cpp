@@ -1,4 +1,5 @@
 #include "sensors.h"
+#define COUNTER 0
 
 Sensors::Sensors() {
     for (int i = 0; i < NUM_SENSORS; i++) {
@@ -31,14 +32,15 @@ void Sensors::updateSensors() {
         indicatorTimer = millis();
         onStraight = !onStraight;
     }
-    //if indicator is on green and past the cooldown time (new indicator) change state
-	if (sensorValues[6] == 2 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
+	if (sensorValues[6] == 2 && COUNTER == 0 && COUNTER == 2 && COUNTER == 4 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
         indicatorTimer = millis();
         onSlow = !onSlow;
+		COUNTER++;
     }
-	if (sensorValues[6] == 3 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
+	if (sensorValues[6] == 2 && COUNTER == 1 && COUNTER == 3 && COUNTER == 5 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
         indicatorTimer = millis();
         onSlow = onSlow;
+		COUNTER++;
     }
 }
 
