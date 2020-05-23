@@ -16,8 +16,7 @@
 #define EMITTER B3
 //threshold for detecting black
 #define WHITE_THRESHOLD 100
-#define GREEN_THRESHOLD 
-#define RED_THRESHOLD 
+#define GREEN_RED_THRESHOLD
 
 //states
 #define ON_STRAIGHT 0
