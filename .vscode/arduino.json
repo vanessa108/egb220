@@ -1,5 +1,6 @@
 {
     "board": "arduino:avr:leonardo",
-    "programmer": "AVR ISP",
-    "sketch": "motor_test.ino"
+    "programmer": "Arduino as ISP",
+    "sketch": "main\\main.ino",
+    "port": "COM27"
 }
