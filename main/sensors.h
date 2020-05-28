@@ -1,4 +1,4 @@
-#ifndef SENSORS_H
+ #ifndef SENSORS_H
 #define SENSORS_H
 
 #include "spark.h"
@@ -17,15 +17,15 @@
 
 #define EMITTER B3
 //threshold for detecting black
-#define WHITE_THRESHOLD 100
+#define WHITE_THRESHOLD 500
 #define GREEN_RED_THRESHOLD
 
 //states
-#define ON_STRAIGHT 0
-#define ON_CURVE   1
+#define ON_CURVE 0
+#define ON_STRAIGHT 1
 #define ON_SLOW   2
 //cool down for the indicator (this prevents the indicator blinking on and off while over a line)
-#define INDICATOR_COOLDOWN 100
+#define INDICATOR_COOLDOWN 105
 
 #define NUM_SENSORS 6
 // 8 (left) -> 1 (right)
@@ -37,7 +37,7 @@ class Sensors {
         Sensors(); //initialise class
         //sensor pins left to right   ROBOT POV sensor_8 is left most 
         char sensorPins[NUM_SENSORS] = {SENSOR_7, SENSOR_6, SENSOR_4,SENSOR_3, SENSOR_8,  SENSOR_2};
-        /**
+        /**ujy 
          * reads the sensor values and sets them to either black or white
          * checks if the curve line sensor has detected an indicator and toggles states 
          **/
@@ -45,13 +45,24 @@ class Sensors {
         int sensorValues[NUM_SENSORS];
         bool onStraight = true;
         bool onSlow = false;
+        int state = 1;
         /**
          * determines the position error of the robot **/
         int calculateError();
-        int path[26] = {0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 2, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1};
+        /**1, 0, 0, 1, 1, 0, 0, 1,1, 0,1,0, 0, 1,2, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1**
+         * //1, 0,1,0, 0, 1,2, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1
+         */
+        
+        int path[26] = {1, 0, 0, 1, 1, 0, 0, 1,1, 0,1,0, 0, 1,1, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1};
+        int pathTracker = 0;
+        int stopCounter = 0;
+        int numToStop = 10;
+        long rightIndicatorTimer = 0;
+        bool finishLine = false;
     private:
         int a_sensorValues[NUM_SENSORS];
         long indicatorTimer = 0;
+        
 };
 
 
