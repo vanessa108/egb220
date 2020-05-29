@@ -44,21 +44,19 @@ class Sensors {
         void updateSensors();
         int sensorValues[NUM_SENSORS];
         bool onStraight = true;
-        bool onSlow = false;
         int state = 1;
+        
         /**
          * determines the position error of the robot **/
         int calculateError();
-        /**1, 0, 0, 1, 1, 0, 0, 1,1, 0,1,0, 0, 1,2, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1**
-         * //1, 0,1,0, 0, 1,2, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1
-         * 1, 0, 0, 1, 1, 0, 0, 1,1, 0,1,0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1
-         */
-        
-        int path[26] = {1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1,0,1};
+            // 11
+        //int path[21] = {1, 0, 0, 1, 0, 0, 1,1, 0, 1, 0, 0, 1, 2, 1, 0, 1, 0, 1,0,1};
+        int path[22] = {1, 0, 0, 1, 0, 0,  1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1,0,1};
         int pathTracker = 0;
         int stopCounter = 0;
         int numToStop = 10;
         long rightIndicatorTimer = 0;
+        long startTimer;
         bool finishLine = false;
     private:
         int a_sensorValues[NUM_SENSORS];

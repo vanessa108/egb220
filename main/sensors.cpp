@@ -13,39 +13,44 @@ void Sensors::updateSensors() {
     for (int i =0; i < NUM_SENSORS; i++) {
         a_sensorValues[i] = analogRead(sensorPins[i]);
     }
-    //could probably put this in the above for loop
    for (int i=0; i <NUM_SENSORS-2; i++) {
    
-        if (a_sensorValues[i] > 400){
+        if (a_sensorValues[i] > 100){
             sensorValues[i] = 1; //black
         }else {
             sensorValues[i] = 0;
         }
     }
     for (int i = 4; i < NUM_SENSORS; i++) {
-        if (a_sensorValues[i] > 750) {
-          sensorValues[i] = 1;
+        if (a_sensorValues[i] > 40) {
+          sensorValues[i] = a_sensorValues[i];
         } else {
           sensorValues[i] = 0;
         }
       }
 
     //if indicator is on black and past the cooldown time (new indicator) change state
-    if (sensorValues[4] == 1 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
+    if (sensorValues[4] > 650 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
         indicatorTimer = millis();
         pathTracker++; 
         state = path[pathTracker];
-    }
+    } else if (sensorValues[4] > 0 and (indicatorTimer + INDICATOR_COOLDOWN <= millis()) and pathTracker == 11){ 
+        if (state != 2) {
+          state = 2;
+          indicatorTimer = millis();
+        } else if (state == 2){
+          pathTracker++;
+          state=path[pathTracker];
+          }
 
+     }
+    
  
-    if (sensorValues[5] == 1 and (rightIndicatorTimer + INDICATOR_COOLDOWN <= millis())) {
-        // code for stop
-        rightIndicatorTimer = millis();
+    if (sensorValues[5] > 650 and (rightIndicatorTimer + INDICATOR_COOLDOWN <= millis())) {
         stopCounter++;
+        if ((startTimer + 15000) <= millis()) {
         finishLine = true;
-//        if (stopCounter == 7) {
-//          finishLine = true;
-//        }
+        }
     }
 }
 

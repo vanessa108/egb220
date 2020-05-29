@@ -5,6 +5,7 @@
 #include "sensors.h"
 #include "LiquidCrystal_SoftI2C.h"
 
+
 #define ON_CURVE 0
 #define ON_STRAIGHT 1
 #define ON_SLOW 2
@@ -13,7 +14,6 @@ SoftwareWire *wire = new SoftwareWire(F1, F4);
 Sensors sensor;
 Motors motor;
 LiquidCrystal_I2C lcd(0x27, 16, 2, wire);
-
 /** Error constants **/
 int error = 0;
 int previousError = 0;
@@ -32,27 +32,34 @@ void setup() {
   pinMode(LED3, OUTPUT);
   lcd.begin();
   lcd.backlight();
+  lcd.home();
+  lcd.blink();
   lcd.print("hello");
+  sensor.startTimer = millis();
+ 
 }
 
 void loop() {
   sensor.updateSensors();
-  lcd.print(sensor.stopCounter);
-  Serial.println(analogRead(sensor.sensorPins[4]));
+  lcd.print("hello");
+  Serial.println(sensor.sensorValues[2]);
   if (sensor.finishLine == true) {
     motor.baseSpeed = 0;
     analogWrite(D0, 0);
-    analogWrite(B7, 0);
-//    sensor.pathTracker = 0;
-//    sensor.state = 1;
-//    sensor.stopCounter = -1;
-    delay(2000);
+    analogWrite(B7, 0);  
+    sensor.pathTracker = 0;
+    sensor.stopCounter = 0;
+    delay(3000);
     sensor.rightIndicatorTimer = millis();
+    sensor.startTimer = millis();
     sensor.finishLine = false;
   } else {
       
-  if (sensor.state == 2 and analogRead(sensor.sensorPins[4]) < 100){
-    motor.baseSpeed = 20;
+  if (sensor.state == 2){
+    motor.baseSpeed = 35;
+    motor.drive(0);
+    digitalWrite(LED2, LOW);
+    digitalWrite(LED3, LOW);
   }
   // if the robot is on a straight, speed up and turn on LEDs
   if (sensor.state == ON_STRAIGHT) {
@@ -68,7 +75,8 @@ void loop() {
       if (straightCool + 100 < millis()) {
         motor.baseSpeed = 100;
       }   
-  } else {
+  } 
+  if (sensor.state == ON_CURVE){
       //lcd.print("Curve");
       digitalWrite(LED2, LOW);
       digitalWrite(LED3, LOW);

@@ -2,5 +2,5 @@
     "board": "arduino:avr:leonardo",
     "programmer": "AVR ISP",
     "sketch": "main\\main.ino",
-    "port": "COM29"
+    "port": "COM27"
 }

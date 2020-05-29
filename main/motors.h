@@ -17,7 +17,7 @@ class Motors {
       Motors();
         int motorPins[4] = {L_PWM, L_DIR, R_PWM, R_DIR};
         void drive(int speed);
-        int baseSpeed = 100;
+        int baseSpeed = 100;//100
         // speed = 100 -> 333mm/s
         //aprox 45 for 100mm/s
     private:
