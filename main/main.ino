@@ -19,8 +19,8 @@ int error = 0;
 int previousError = 0;
 int dError = 0;
 int iError = 0;
-float Kp = 33; //best for speed 80 //34 , 1
-float Kd = 5; 
+float Kp = 35; //best for speed 80 //34 , 1
+float Kd = 8; //7.5
 float Ki = 0;
 float errorSpeed = 0;
 bool prevStraight = true;
@@ -43,9 +43,10 @@ void loop() {
     motor.baseSpeed = 0;
     analogWrite(D0, 0);
     analogWrite(B7, 0);
-    sensor.pathTracker = 0;
-    sensor.stopCounter = 0;
-    delay(3000);
+//    sensor.pathTracker = 0;
+//    sensor.state = 1;
+//    sensor.stopCounter = -1;
+    delay(2000);
     sensor.rightIndicatorTimer = millis();
     sensor.finishLine = false;
   } else {
@@ -65,7 +66,7 @@ void loop() {
       }
     // robot speeds up if it is still on a straight and the cooldown is over
       if (straightCool + 100 < millis()) {
-        motor.baseSpeed = 75;
+        motor.baseSpeed = 100;
       }   
   } else {
       //lcd.print("Curve");

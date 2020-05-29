@@ -17,7 +17,7 @@
 
 #define EMITTER B3
 //threshold for detecting black
-#define WHITE_THRESHOLD 500
+#define WHITE_THRESHOLD 600
 #define GREEN_RED_THRESHOLD
 
 //states
@@ -51,9 +51,10 @@ class Sensors {
         int calculateError();
         /**1, 0, 0, 1, 1, 0, 0, 1,1, 0,1,0, 0, 1,2, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1**
          * //1, 0,1,0, 0, 1,2, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1
+         * 1, 0, 0, 1, 1, 0, 0, 1,1, 0,1,0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1
          */
         
-        int path[26] = {1, 0, 0, 1, 1, 0, 0, 1,1, 0,1,0, 0, 1,1, 1, 1, 1, 1, 0, 1, 0, 1, 0,1 ,1};
+        int path[26] = {1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1,0,1};
         int pathTracker = 0;
         int stopCounter = 0;
         int numToStop = 10;

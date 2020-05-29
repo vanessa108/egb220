@@ -14,16 +14,21 @@ void Sensors::updateSensors() {
         a_sensorValues[i] = analogRead(sensorPins[i]);
     }
     //could probably put this in the above for loop
-   for (int i=0; i <NUM_SENSORS; i++) {
-        // if (a_sensorValues[i] > WHITE_THRESHOLD && a_sensorValues[i] < GREEN_RED_THRESHOLD){
-        //     sensorValues[i] = 2; //green or red
-        // }
-        if (a_sensorValues[i] > WHITE_THRESHOLD){
+   for (int i=0; i <NUM_SENSORS-2; i++) {
+   
+        if (a_sensorValues[i] > 400){
             sensorValues[i] = 1; //black
         }else {
             sensorValues[i] = 0;
         }
     }
+    for (int i = 4; i < NUM_SENSORS; i++) {
+        if (a_sensorValues[i] > 750) {
+          sensorValues[i] = 1;
+        } else {
+          sensorValues[i] = 0;
+        }
+      }
 
     //if indicator is on black and past the cooldown time (new indicator) change state
     if (sensorValues[4] == 1 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
@@ -37,9 +42,10 @@ void Sensors::updateSensors() {
         // code for stop
         rightIndicatorTimer = millis();
         stopCounter++;
-        if (stopCounter == 7) {
-          finishLine = true;
-        }
+        finishLine = true;
+//        if (stopCounter == 7) {
+//          finishLine = true;
+//        }
     }
 }
 
