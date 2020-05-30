@@ -15,14 +15,14 @@ void Sensors::updateSensors() {
     }
    for (int i=0; i <NUM_SENSORS-2; i++) {
    
-        if (a_sensorValues[i] > 100){
+        if (a_sensorValues[i] > 300){
             sensorValues[i] = 1; //black
         }else {
             sensorValues[i] = 0;
         }
     }
     for (int i = 4; i < NUM_SENSORS; i++) {
-        if (a_sensorValues[i] > 40) {
+        if (a_sensorValues[i] > 35) {
           sensorValues[i] = a_sensorValues[i];
         } else {
           sensorValues[i] = 0;
@@ -30,7 +30,7 @@ void Sensors::updateSensors() {
       }
 
     //if indicator is on black and past the cooldown time (new indicator) change state
-    if (sensorValues[4] > 650 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
+    if (sensorValues[4] > 700 and (indicatorTimer + INDICATOR_COOLDOWN <= millis())) {
         indicatorTimer = millis();
         pathTracker++; 
         state = path[pathTracker];
@@ -46,8 +46,7 @@ void Sensors::updateSensors() {
      }
     
  
-    if (sensorValues[5] > 650 and (rightIndicatorTimer + INDICATOR_COOLDOWN <= millis())) {
-        stopCounter++;
+    if (sensorValues[5] > 700 and (rightIndicatorTimer + INDICATOR_COOLDOWN <= millis())) {
         if ((startTimer + 15000) <= millis()) {
         finishLine = true;
         }
